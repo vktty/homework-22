@@ -68,22 +68,31 @@ console.log(counterByOne.value()) // 201
 
 
 // 3
-const myPow = function(a, b, myPrint) {
-    if (a === 1) {
-        return 1;
+const myPrint = (a, b, result) => {
+    return `${a}^${b}=${result}`;
+}
+
+const myPow = (number, power, myPrint) => {
+    const createPow = (number, power) => {
+        if (power === 1) {
+            return number;
+        }
+        if (power < 0) {
+            return 1 / createPow(number, -power);
+        }
+        return number * createPow(number, power - 1);
     }
 
-    return myPrint(a, b, a**b);
+    const result = createPow(number, power);
+
+    return myPrint(number, power, result);
 }
 
-const myPrint = function(a, b, res) {
-    return `${a}^${b}=${res}`;
-}
 
-console.log(myPow(3, 4, myPrint)) // 3^4=81
-console.log(myPow(2, 3, myPrint)) // 2^3=8
-console.log(myPow(2, 0, myPrint)) // 2^0=1
-console.log(myPow(2, -2, myPrint)) // 2^-2=0.25
+console.log(myPow(3, 4, myPrint)); // 3^4=81
+console.log(myPow(2, 3, myPrint)); // 2^3=8
+console.log(myPow(2, 0, myPrint)); // 2^0=1
+console.log(myPow(2, -2, myPrint)); // 2^-2=0.25
 
 
 // 4
@@ -108,7 +117,7 @@ console.log(getMyDouble(3)) // = myMul(2, 3) = 6
 console.log(getMyDouble(4)) // = myMul(2, 4) = 8
 console.log(getMyDouble(5)) // = myMul(2, 5) = 10
 
-const getMyTriple = function(n) {
+const getMyTriple = function (n) {
     return GetMyMultiply(3, n);
 }
 console.log(getMyTriple(3)) // = myMul(3, 3) = 9
